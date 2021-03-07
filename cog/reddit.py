@@ -46,11 +46,13 @@ class Reddit_fun():
 
 
 class Reddit(commands.Cog):
-    def __init__(self):
+    
+    def __init__(self,bot):
         self.reddit_fun = Reddit_fun()
         self.reddit = praw.Reddit(client_id= os.getenv('client_id') ,
                                 client_secret = os.getenv('client_secret'),
                                 user_agent = 'SubBot created by @Raven_Ebonscale')
+        self.bot =bot
 
     @commands.command(name='top')
     async def top_iamges(self,ctx,sub,num= 10,Text=False):
@@ -90,6 +92,11 @@ class Reddit(commands.Cog):
                 print(f'sent to {ctx.message.channel} @ {ctx.message.guild} ^.^')
         except commands.CommandInvokeError as e:
             print(e)
+    async def furry_memes(self):
+        subreddit = self.reddit.subreddit('furry_irl')
+        for submission in subreddit.stream.submissions():
+            print(submission)
+
 
 def setup(bot):
-    bot.add_cog(Reddit())
+    bot.add_cog(Reddit(bot))

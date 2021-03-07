@@ -8,6 +8,7 @@ RUN pip install python-dotenv
 RUN pip install pytube
 RUN pip install ffmpeg
 RUN pip install tqdm
+RUN pip install owoify-py
 
 
 COPY ./ .
