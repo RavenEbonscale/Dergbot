@@ -13,12 +13,14 @@ class Nsfw(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
 
-    @commands.command(name= 'e621')
+    @commands.command(name= 'e621t')
     @commands.is_nsfw()
-    async def e621(self,ctx,tags):
+    async def e621(self,ctx,tags,num =1 ):
         if 'wholsome' not in tags:
+            
             tags = tags.replace(',','+')
-            images = await e6.get_image(tags)
+            images = await e6.get_image(tags,num)
+
             await ctx.message.channel.send(embed=images)
             print(f'sent to {ctx.message.channel} ^.^')
 
@@ -27,12 +29,13 @@ class Nsfw(commands.Cog):
 
     @commands.command('e621a')
     @commands.is_nsfw()
-    async def e621_list(self,ctx,tags):
+    async def e621_list(self,ctx,tags,num):
             if 'wholsome' not in tags:
-                tags = tags.replace(',','+')
-                image = await e6.get_animation(tags)
-                await ctx.message.channel.send(image)
-                print(f'sent to {ctx.message.channel} ^.^')
+                for num in range(num):
+                    tags = tags.replace(',','+')
+                    image = await e6.get_animation(tags)
+                    await ctx.message.channel.send(image)
+                    print(f'sent to {ctx.message.channel} ^.^')
 
             else:
                 await ctx.message.channel.send('Fuck off @{ctx.message.author}')

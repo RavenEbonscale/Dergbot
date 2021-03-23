@@ -18,17 +18,21 @@ class e621:
 
 
 
-    async def get_image(self,tags):
-        urls= await geturls(tags,safe= False,headers=self.headers,exts=self.exts)
-        url = random.choice(urls)
+    async def get_image(self,tags,num):
+        url=[]
         embed =Embed()
-        embed.set_image(url=url)
+        urls= await geturls(tags,safe= False,headers=self.headers,exts=self.exts)
+        for _ in range(num):
+            url = random.choice(urls)
+            
+            embed.set_image(url=url)
         return embed
 
     async def get_animation(self,tags):
         urls= await geturls(tags,True,False,headers=self.headers,exts=self.exts)
         url = random.choice(urls)
         return url
+
 class e926:
     user_agent= None
     Api = None
